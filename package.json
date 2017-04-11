@@ -15,6 +15,6 @@
     "Netanel Basal"
   ],
   "repository": {
-    "url": "https://github.com/NetanelBasal/angular2-take-until-destroy"
+    "url": "https://github.com/NetanelBasal/ngx-auto-unsubscribe"
   }
 }
