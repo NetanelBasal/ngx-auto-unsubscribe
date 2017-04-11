@@ -1,0 +1,20 @@
+{
+  "name": "ngx-auto-unsubscribe",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "description": "Class decorator that will automatically unsubscribe from observables and events",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "rm -rf ./dist && tsc"
+  },
+  "typings": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "maintainers": [
+    "Netanel Basal"
+  ],
+  "repository": {
+    "url": "https://github.com/NetanelBasal/angular2-take-until-destroy"
+  }
+}
