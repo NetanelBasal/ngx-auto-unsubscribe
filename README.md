@@ -1,4 +1,5 @@
-### Angular - Class decorator that will automatically unsubscribe from observables and events when the component destroyed
+### Angular - Auto unsubscribe
+#### Class decorator that will automatically unsubscribe from observables and events when the component destroyed
 
 ## Installation
 `npm install ngx-auto-unsubscribe --save`
