@@ -27,3 +27,5 @@ export class InboxComponent {
 }
 ```
 
+Note: Right now there is a problem with AOT mode. You need to define the ngOnDestroy() method explicitly. Otherwise, it will not work. I hope it will be fixed soon.
+
