@@ -13,15 +13,15 @@ import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 })
 @AutoUnsubscribe(blacklist = [])
 export class InboxComponent {
-  one$;
-  two$;
+  one;
+  two;
   three;
   
   constructor( private store: Redux, private renderer: Renderer, private element : ElementRef ) {}
   
   ngOnInit() {
-    this.one$ = store.select("data").subscribe(data => // do something);
-    this.two$ = Observable.interval.subscribe(data => // do something);
+    this.one = store.select("data").subscribe(data => // do something);
+    this.two = Observable.interval.subscribe(data => // do something);
     this.three = this.renderer.listen(this.element.nativeElement, this.event, e => // do something)
   }
 }
