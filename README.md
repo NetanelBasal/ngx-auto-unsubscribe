@@ -15,7 +15,7 @@ import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 export class InboxComponent {
   one: Subscription;
   two: Subscription;
-  three: Subscription;
+  three;
   
   constructor( private store: Redux, private renderer: Renderer, private element : ElementRef ) {}
   
