@@ -13,9 +13,9 @@ import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 })
 @AutoUnsubscribe(blacklist = [])
 export class InboxComponent {
-  one;
-  two;
-  three;
+  one: Subscription;
+  two: Subscription;
+  three: Subscription;
   
   constructor( private store: Redux, private renderer: Renderer, private element : ElementRef ) {}
   
