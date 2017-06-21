@@ -24,9 +24,13 @@ export class InboxComponent {
     this.two = Observable.interval.subscribe(data => // do something);
     this.three = this.renderer.listen(this.element.nativeElement, this.event, e => // do something)
   }
+  
+  // If you work with AOT this method must be present, even if empty! 
+  // Otherwise 'ng build --prod' will optimize away any calls to ngOnDestroy, 
+  // even if the method is added by the @TakeUntilDestroy decorator
+  ngOnDestroy() {
+    // You can also do whatever you need here
+  }
 }
 ```
-
-#### Note: 
-Right now there is a problem with AOT mode. You need to define the ngOnDestroy() method explicitly. Otherwise, it will not work. I hope it will be fixed soon.
 
