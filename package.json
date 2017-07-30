@@ -1,20 +1,27 @@
 {
   "name": "ngx-auto-unsubscribe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "description": "Class decorator that will automatically unsubscribe from observables and events",
   "license": "MIT",
   "scripts": {
-    "prepublish": "rm -rf ./dist && tsc"
+    "build": "ngc -p tsconfig.json",
+    "prepublish": "rm -rf ./dist && npm run build"
   },
   "typings": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "maintainers": [
     "Netanel Basal"
   ],
   "repository": {
     "url": "https://github.com/NetanelBasal/ngx-auto-unsubscribe"
+  },
+  "devDependencies": {
+    "@angular/compiler": "^4.0.2",
+    "@angular/compiler-cli": "^4.0.2",
+    "@angular/core": "^4.0.2",
+    "typescript": "^2.2.2"
+  },
+  "dependencies": {
+    "rxjs": "^5.3.0"
   }
 }

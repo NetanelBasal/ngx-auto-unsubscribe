@@ -1,0 +1,1 @@
+{"summaries":[{"symbol":{"__symbol":0,"members":[]},"metadata":{"__symbolic":"function","parameters":["blackList"],"value":{"__symbolic":"error","message":"Function call not supported","line":2,"character":9},"defaults":[[]]}}],"symbols":[{"__symbol":0,"name":"AutoUnsubscribe","filePath":"/Users/netanelbasal/www/ngx-auto-unsubscribe/src/ngx-auto-unsubscribe.d.ts"}]}
