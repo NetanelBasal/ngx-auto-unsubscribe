@@ -1,6 +1,6 @@
 {
   "name": "ngx-auto-unsubscribe",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "description": "Class decorator that will automatically unsubscribe from observables and events",
   "license": "MIT",
