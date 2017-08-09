@@ -1,4 +1,5 @@
-### Angular - Auto unsubscribe
+### Angular - Auto unsubscribe for pros [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
+
 #### Class decorator that will automatically unsubscribe from observables and events when the component destroyed
 
 ## Installation
