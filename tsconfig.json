@@ -10,14 +10,14 @@
         "declaration": true,
         "outDir": "dist/",
         "lib": [
-            "es2015", "es2017"
+            "dom",
+            "es2015", 
+            "es2017"
         ]
     },
     "exclude": [
         "node_modules",
-        "lib"
-    ],
-   "angularCompilerOptions": {
-     "strictMetadataEmit": true
-   }
+        "lib",
+        "__tests__"
+    ]
 }

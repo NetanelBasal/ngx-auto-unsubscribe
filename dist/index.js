@@ -1,3 +1,2 @@
-import { AutoUnsubscribe } from "./ngx-auto-unsubscribe";
-export { AutoUnsubscribe };
+export { AutoUnsubscribe } from "./auto-unsubscribe";
 //# sourceMappingURL=index.js.map
