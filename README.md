@@ -11,11 +11,9 @@
 ```js
 import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
+@AutoUnsubscribe()
 @Component({
   selector: 'inbox'
-})
-@AutoUnsubscribe({
-  blacklist: []
 })
 export class InboxComponent {
   one: Subscription;
