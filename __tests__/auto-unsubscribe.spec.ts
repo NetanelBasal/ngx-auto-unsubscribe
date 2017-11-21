@@ -87,5 +87,16 @@ describe('@AutoUnsubscribe', () => {
     expect(mockObservable2.unsubscribe.mock.calls.length).toBe(1);    
   });
 
+  it('should unsubscribe an array of subscriptions', () => {
+    @AutoUnsubscribe({ includeArrays: true })
+    class TodsComponent {
+      obs = Array(3).fill(mockObservable);
+      ngOnDestroy() { }
+    }
+
+    new TodsComponent().ngOnDestroy();
+    expect(mockObservable.unsubscribe.mock.calls.length).toBe(3);
+  });
+
 
 });

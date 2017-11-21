@@ -2,20 +2,23 @@ function isFunction( fn ) {
   return typeof fn === 'function';
 }
 
-export function AutoUnsubscribe( {blackList = []} = {}) {
+export function AutoUnsubscribe2({ blackList = [], includeArrays = false } = {}) {
 
-  return function ( constructor : Function ) {
+  return function (constructor: Function) {
     const original = constructor.prototype.ngOnDestroy;
 
-    if ( !isFunction(original) && !window['disableAuthUnsubscribeAot']) {
+    if (!isFunction(original) && !window['disableAuthUnsubscribeAot']) {
       console.warn(`${constructor.name} is using @AutoUnsubscribe but does not implement OnDestroy`);
     }
 
     constructor.prototype.ngOnDestroy = function () {
-      for ( let prop in this ) {
-        const property = this[ prop ];
+      for (let prop in this) {
+        const property = this[prop];
         blackList.indexOf(prop) === -1 && property && isFunction(property.unsubscribe) && property.unsubscribe();
+
+        includeArrays && blackList.indexOf(prop) === -1 && Array.isArray(property) && property.forEach(singleProp => singleProp && isFunction(singleProp.unsubscribe) && singleProp.unsubscribe());
       }
+
       isFunction(original) && original.apply(this, arguments);
     };
   }
