@@ -14,7 +14,9 @@
 ```js
 import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
-@AutoUnsubscribe()
+// you can also do @AutoUnsubscribe({ includeArrays: true }) 
+// if you want to unsubscribe from arrays of observables (default is false)
+@AutoUnsubscribe() 
 @Component({
   selector: 'inbox'
 })
