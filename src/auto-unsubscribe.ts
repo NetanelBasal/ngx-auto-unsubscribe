@@ -2,7 +2,7 @@ function isFunction( fn ) {
   return typeof fn === 'function';
 }
 
-export function AutoUnsubscribe2({ blackList = [], includeArrays = false } = {}) {
+export function AutoUnsubscribe({ blackList = [], includeArrays = false } = {}) {
 
   return function (constructor: Function) {
     const original = constructor.prototype.ngOnDestroy;
