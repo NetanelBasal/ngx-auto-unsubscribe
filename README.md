@@ -40,7 +40,7 @@ export class InboxComponent {
 
 `AutoUnsubscribe` takes optional parameters - 
 
-`includeArrays` - unsubscribe from arrays of observables (default is false)
+- `includeArrays` - unsubscribe from arrays of observables (default is false)
 
-`blackList` - an array of properties to exclude
+- `blackList` - an array of properties to exclude
 
