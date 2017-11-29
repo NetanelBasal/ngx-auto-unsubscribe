@@ -38,9 +38,12 @@ export class InboxComponent {
 }
 ```
 
-`AutoUnsubscribe` takes optional parameters - 
 
-- `includeArrays` - unsubscribe from arrays of observables (default is false)
 
-- `blackList` - an array of properties to exclude
+### Options
+
+| Option               | Description                                                        | Default Value     |
+| -------------------- | ------------------------------------------------------------------ | ----------------  |
+| `includeArrays`      | unsubscribe from arrays of observables                             | `false`           |
+| `blackList`          | an array of properties to exclude                                  | `[]`              |
 
