@@ -39,7 +39,7 @@ describe('@AutoUnsubscribe', () => {
   });
 
   it('should not warn when disable AOT mode', () => {
-    window['disableAuthUnsubscribeAot'] = true;
+    window['disableAutoUnsubscribeAot'] = true;
     const consoleSpy = jest.spyOn(console, 'warn');
     @AutoUnsubscribe()
     class TodsComponent {
