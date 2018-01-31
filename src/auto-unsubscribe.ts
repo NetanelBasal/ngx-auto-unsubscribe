@@ -7,7 +7,7 @@ export function AutoUnsubscribe({ blackList = [], includeArrays = false } = {}) 
   return function (constructor: Function) {
     const original = constructor.prototype.ngOnDestroy;
 
-    if (!isFunction(original) && disableAutoUnsubscribeAot()) {
+    if (!isFunction(original) && !disableAutoUnsubscribeAot()) {
       console.warn(`${constructor.name} is using @AutoUnsubscribe but does not implement OnDestroy`);
     }
 
@@ -25,6 +25,6 @@ export function AutoUnsubscribe({ blackList = [], includeArrays = false } = {}) 
 
 
   function disableAutoUnsubscribeAot() {
-    return !window['disableAutoUnsubscribeAot'] || !window['disableAuthUnsubscribeAot'];
+    return window['disableAutoUnsubscribeAot'] || window['disableAuthUnsubscribeAot'];
   }
 }
