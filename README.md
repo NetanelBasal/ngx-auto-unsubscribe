@@ -47,3 +47,4 @@ export class InboxComponent {
 | `includeArrays`      | unsubscribe from arrays of observables                             | `false`           |
 | `blackList`          | an array of properties to exclude                                  | `[]`              |
 
+You can also use https://github.com/NetanelBasal/ngx-take-until-destroy.
