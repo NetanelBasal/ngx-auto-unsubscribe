@@ -50,6 +50,18 @@ describe('@AutoUnsubscribe', () => {
     expect(consoleSpy).not.toHaveBeenCalled();
   });
 
+  it('should not warn when disable AOT mode with typo', () => {
+    window['disableAuthUnsubscribeAot'] = true;
+    const consoleSpy = jest.spyOn(console, 'warn');
+    @AutoUnsubscribe()
+    class TodsComponent {
+      obs =  mockObservable;
+    }
+    
+    new TodsComponent()['ngOnDestroy']();
+    expect(consoleSpy).not.toHaveBeenCalled();
+  });
+
   it('should call unsubscribe on destroy', () => {
     @AutoUnsubscribe()
     class TodsComponent {
