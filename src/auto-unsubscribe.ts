@@ -11,7 +11,7 @@ export function AutoUnsubscribe({ blackList = [], includeArrays = false, event =
       console.warn(`${constructor.name} is using @AutoUnsubscribe but does not implement OnDestroy`);
     }
 
-    constructor.prototype.[event] = function () {
+    constructor.prototype[event] = function () {
       for (let prop in this) {
         const property = this[prop];
         blackList.indexOf(prop) === -1 && property && isFunction(property.unsubscribe) && property.unsubscribe();
