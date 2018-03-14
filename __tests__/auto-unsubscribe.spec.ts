@@ -33,7 +33,7 @@ describe('@AutoUnsubscribe', () => {
       obs =  mockObservable;
       ngOnDestroy() {}
     }
-    
+
     new TodsComponent()['ngOnDestroy']();
     expect(consoleSpy).not.toHaveBeenCalled();
   });
@@ -45,7 +45,7 @@ describe('@AutoUnsubscribe', () => {
     class TodsComponent {
       obs =  mockObservable;
     }
-    
+
     new TodsComponent()['ngOnDestroy']();
     expect(consoleSpy).not.toHaveBeenCalled();
   });
@@ -57,7 +57,7 @@ describe('@AutoUnsubscribe', () => {
     class TodsComponent {
       obs =  mockObservable;
     }
-    
+
     new TodsComponent()['ngOnDestroy']();
     expect(consoleSpy).not.toHaveBeenCalled();
   });
@@ -70,6 +70,23 @@ describe('@AutoUnsubscribe', () => {
     }
 
     new TodsComponent().ngOnDestroy();
+    expect(mockObservable.unsubscribe.mock.calls.length).toBe(1);
+  });
+
+  it('should call unsubscribe on custom event callback', () => {
+    @AutoUnsubscribe({event: 'ionViewDidLeave'})
+    class TodsComponent {
+      obs =  mockObservable;
+      ngOnDestroy() {}
+      ionViewDidLeave() {}
+    }
+
+    const cmp = new TodsComponent();
+
+    cmp.ngOnDestroy();
+    expect(mockObservable.unsubscribe.mock.calls.length).toBe(0);
+
+    cmp.ionViewDidLeave();
     expect(mockObservable.unsubscribe.mock.calls.length).toBe(1);
   });
 
@@ -90,13 +107,13 @@ describe('@AutoUnsubscribe', () => {
     @AutoUnsubscribe({blackList: ['obs']})
     class TodsComponent {
       obs =  mockObservable;
-      obs2 =  mockObservable2;      
+      obs2 =  mockObservable2;
       ngOnDestroy() {}
     }
 
     new TodsComponent().ngOnDestroy();
     expect(mockObservable.unsubscribe.mock.calls.length).toBe(0);
-    expect(mockObservable2.unsubscribe.mock.calls.length).toBe(1);    
+    expect(mockObservable2.unsubscribe.mock.calls.length).toBe(1);
   });
 
   it('should unsubscribe an array of subscriptions', () => {
