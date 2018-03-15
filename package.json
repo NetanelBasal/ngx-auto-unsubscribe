@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest",
     "build": "rm -rf ./dist && tsc",
-    "prepublish": "rm -rf ./dist && npm run build"
+    "prepublish": "rm -rf ./dist && npm test && npm run build"
   },
   "jest": {
     "moduleFileExtensions": [
