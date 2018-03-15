@@ -46,5 +46,6 @@ export class InboxComponent {
 | -------------------- | ------------------------------------------------------------------ | ----------------  |
 | `includeArrays`      | unsubscribe from arrays of observables                             | `false`           |
 | `blackList`          | an array of properties to exclude                                  | `[]`              |
+| `ngOnDestroy`        | a name of event callback to execute on                             | `ngOnDestroy`     |
 
 You can also use https://github.com/NetanelBasal/ngx-take-until-destroy.
