@@ -1,0 +1,22 @@
+{
+  "projectName": "ngx-auto-unsubscribe",
+  "projectOwner": "Netanel Basal",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "misaizdaleka",
+      "name": "misaizdaleka",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2690948?v=4",
+      "profile": "https://github.com/misaizdaleka",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
+}
