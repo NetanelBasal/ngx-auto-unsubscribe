@@ -6,7 +6,7 @@
 [![npm](https://img.shields.io/npm/l/ngx-auto-unsubscribe.svg)]()
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
-#### Class decorator that will automatically unsubscribe from observables when the component destroyed
+#### Class decorator that will automatically unsubscribe from observable subscriptions when the component destroyed
 
 ## Installation
 `npm install ngx-auto-unsubscribe --save`
@@ -43,11 +43,12 @@ export class InboxComponent {
 
 ### Options
 
-| Option               | Description                                                        | Default Value     |
-| -------------------- | ------------------------------------------------------------------ | ----------------  |
-| `includeArrays`      | unsubscribe from arrays of observables                             | `false`           |
-| `blackList`          | an array of properties to exclude                                  | `[]`              |
-| `ngOnDestroy`        | a name of event callback to execute on                             | `ngOnDestroy`     |
+| Option               | Description                                                             | Default Value     |
+| -------------------- | ----------------------------------------------------------------------- | ----------------  |
+| `includeArrays`      | unsubscribe from arrays of subscriptions                                | `false`           |
+| `arrayName`          | unsubscribe from subscriptions only in specified array                  | `''`              |
+| `blackList`          | an array of properties to exclude (ignored if `arrayName` is specified) | `[]`              |
+| `ngOnDestroy`        | a name of event callback to execute on                                  | `ngOnDestroy`     |
 
 You can also use https://github.com/NetanelBasal/ngx-take-until-destroy.
 
