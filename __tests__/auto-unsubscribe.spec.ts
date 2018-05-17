@@ -1,11 +1,11 @@
 import { AutoUnsubscribe } from '../src/auto-unsubscribe';
 
 
-const mockObservable = {
+const mockSubscription = {
   unsubscribe: jest.fn()
 }
 
-const mockObservable2 = {
+const mockSubscription2 = {
   unsubscribe: jest.fn()
 }
 
@@ -19,7 +19,7 @@ describe('@AutoUnsubscribe', () => {
     const consoleSpy = jest.spyOn(console, 'warn');
     @AutoUnsubscribe()
     class TodsComponent {
-      obs =  mockObservable;
+      sub =  mockSubscription;
     }
 
     new TodsComponent()['ngOnDestroy']();
@@ -30,7 +30,7 @@ describe('@AutoUnsubscribe', () => {
     const consoleSpy = jest.spyOn(console, 'warn');
     @AutoUnsubscribe()
     class TodsComponent {
-      obs =  mockObservable;
+      sub =  mockSubscription;
       ngOnDestroy() {}
     }
 
@@ -43,7 +43,7 @@ describe('@AutoUnsubscribe', () => {
     const consoleSpy = jest.spyOn(console, 'warn');
     @AutoUnsubscribe()
     class TodsComponent {
-      obs =  mockObservable;
+      sub =  mockSubscription;
     }
 
     new TodsComponent()['ngOnDestroy']();
@@ -55,7 +55,7 @@ describe('@AutoUnsubscribe', () => {
     const consoleSpy = jest.spyOn(console, 'warn');
     @AutoUnsubscribe()
     class TodsComponent {
-      obs =  mockObservable;
+      sub =  mockSubscription;
     }
 
     new TodsComponent()['ngOnDestroy']();
@@ -65,18 +65,18 @@ describe('@AutoUnsubscribe', () => {
   it('should call unsubscribe on destroy', () => {
     @AutoUnsubscribe()
     class TodsComponent {
-      obs =  mockObservable;
+      sub =  mockSubscription;
       ngOnDestroy() {}
     }
 
     new TodsComponent().ngOnDestroy();
-    expect(mockObservable.unsubscribe.mock.calls.length).toBe(1);
+    expect(mockSubscription.unsubscribe.mock.calls.length).toBe(1);
   });
 
   it('should call unsubscribe on custom event callback', () => {
     @AutoUnsubscribe({event: 'ionViewDidLeave'})
     class TodsComponent {
-      obs =  mockObservable;
+      sub =  mockSubscription;
       ngOnDestroy() {}
       ionViewDidLeave() {}
     }
@@ -84,48 +84,84 @@ describe('@AutoUnsubscribe', () => {
     const cmp = new TodsComponent();
 
     cmp.ngOnDestroy();
-    expect(mockObservable.unsubscribe.mock.calls.length).toBe(0);
+    expect(mockSubscription.unsubscribe.mock.calls.length).toBe(0);
 
     cmp.ionViewDidLeave();
-    expect(mockObservable.unsubscribe.mock.calls.length).toBe(1);
+    expect(mockSubscription.unsubscribe.mock.calls.length).toBe(1);
   });
 
   it('should work with multiple observables', () => {
     @AutoUnsubscribe()
     class TodsComponent {
-      obs =  mockObservable;
-      obs2 =  mockObservable2;
+      sub =  mockSubscription;
+      sub2 =  mockSubscription2;
       ngOnDestroy() {}
     }
 
     new TodsComponent().ngOnDestroy();
-    expect(mockObservable.unsubscribe.mock.calls.length).toBe(1);
-    expect(mockObservable2.unsubscribe.mock.calls.length).toBe(1);
+    expect(mockSubscription.unsubscribe.mock.calls.length).toBe(1);
+    expect(mockSubscription2.unsubscribe.mock.calls.length).toBe(1);
   });
 
-  it('should not unsubscribe if in blacklist', () => {
-    @AutoUnsubscribe({blackList: ['obs']})
+  it('should NOT unsubscribe if property is in blacklist', () => {
+    @AutoUnsubscribe({blackList: ['sub']})
     class TodsComponent {
-      obs =  mockObservable;
-      obs2 =  mockObservable2;
+      sub =  mockSubscription;
+      sub2 =  mockSubscription2;
       ngOnDestroy() {}
     }
 
     new TodsComponent().ngOnDestroy();
-    expect(mockObservable.unsubscribe.mock.calls.length).toBe(0);
-    expect(mockObservable2.unsubscribe.mock.calls.length).toBe(1);
+    expect(mockSubscription.unsubscribe.mock.calls.length).toBe(0);
+    expect(mockSubscription2.unsubscribe.mock.calls.length).toBe(1);
   });
 
-  it('should unsubscribe an array of subscriptions', () => {
-    @AutoUnsubscribe({ includeArrays: true })
-    class TodsComponent {
-      obs = Array(3).fill(mockObservable);
-      ngOnDestroy() { }
-    }
+  describe('includeArrays', () => {
+    it('should unsubscribe an array of subscriptions', () => {
+      @AutoUnsubscribe({ includeArrays: true })
+      class TodsComponent {
+        subs = Array(3).fill(mockSubscription);
+        ngOnDestroy() { }
+      }
+  
+      new TodsComponent().ngOnDestroy();
+      expect(mockSubscription.unsubscribe.mock.calls.length).toBe(3);
+    });
 
-    new TodsComponent().ngOnDestroy();
-    expect(mockObservable.unsubscribe.mock.calls.length).toBe(3);
+    it('should NOT unsubscribe if array is in blacklist', () => {
+      @AutoUnsubscribe({ includeArrays: true, blackList: ['subs'] })
+      class TodsComponent {
+        subs = Array(3).fill(mockSubscription);
+        subs2 = Array(3).fill(mockSubscription2);
+        ngOnDestroy() {}
+      }
+  
+      new TodsComponent().ngOnDestroy();
+      expect(mockSubscription.unsubscribe.mock.calls.length).toBe(0);
+      expect(mockSubscription2.unsubscribe.mock.calls.length).toBe(3);
+    });
   });
 
+  describe('arrayName', () => {
 
+    beforeEach(() => {
+      @AutoUnsubscribe({ arrayName: 'subscriptions' })
+      class TodsComponent {
+        subscriptions = Array(3).fill(mockSubscription);
+        subs = Array(3).fill(mockSubscription2);
+        ngOnDestroy() { }
+      }
+  
+      new TodsComponent().ngOnDestroy();
+    });
+
+    it(`should unsubscribe from subscriptions in specified array`, () => {
+      expect(mockSubscription.unsubscribe.mock.calls.length).toBe(3);
+    });
+
+    it(`should not unsubscribe from subscriptions in other arrays`, () => {
+      expect(mockSubscription2.unsubscribe.mock.calls.length).toBe(0);
+    });
+    
+  });
 });
