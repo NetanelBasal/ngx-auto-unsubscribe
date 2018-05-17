@@ -1,8 +1,14 @@
-function isFunction( fn ) {
-  return typeof fn === 'function';
+const isFunction = (fn) => typeof fn === 'function';
+
+const doUnsubscribe = (subscription) => {
+  subscription && isFunction(subscription.unsubscribe) && subscription.unsubscribe();
 }
 
-export function AutoUnsubscribe({ blackList = [], includeArrays = false, event = 'ngOnDestroy' } = {}) {
+const doUnsubscribeIfArray = (subscriptionsArray) => {
+  Array.isArray(subscriptionsArray) && subscriptionsArray.forEach(doUnsubscribe);
+}
+
+export function AutoUnsubscribe({ blackList = [], includeArrays = false, arrayName = '', event = 'ngOnDestroy'} = {}) {
 
   return function (constructor: Function) {
     const original = constructor.prototype[event];
@@ -12,11 +18,16 @@ export function AutoUnsubscribe({ blackList = [], includeArrays = false, event =
     }
 
     constructor.prototype[event] = function () {
-      for (let prop in this) {
-        const property = this[prop];
-        blackList.indexOf(prop) === -1 && property && isFunction(property.unsubscribe) && property.unsubscribe();
+      if (arrayName) {
+        return doUnsubscribeIfArray(this[arrayName]);
+      }
+      
+      for (let propName in this) {
+        if (blackList.includes(propName)) continue;
 
-        includeArrays && blackList.indexOf(prop) === -1 && Array.isArray(property) && property.forEach(singleProp => singleProp && isFunction(singleProp.unsubscribe) && singleProp.unsubscribe());
+        const property = this[propName];
+        doUnsubscribe(property);
+        doUnsubscribeIfArray(property);
       }
 
       isFunction(original) && original.apply(this, arguments);

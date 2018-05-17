@@ -1,11 +1,12 @@
 {
   "name": "ngx-auto-unsubscribe",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "main": "dist/index.js",
   "description": "Class decorator that automatically unsubscribes from observables and events",
   "license": "MIT",
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watch",
     "build": "rm -rf ./dist && tsc",
     "prepublish": "rm -rf ./dist && npm test && npm run build"
   },
