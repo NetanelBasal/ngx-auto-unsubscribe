@@ -21,7 +21,7 @@ export function AutoUnsubscribe({ blackList = [], includeArrays = false, arrayNa
       if (arrayName) {
         return doUnsubscribeIfArray(this[arrayName]);
       }
-      
+
       for (let propName in this) {
         if (blackList.includes(propName)) continue;
 
@@ -36,6 +36,6 @@ export function AutoUnsubscribe({ blackList = [], includeArrays = false, arrayNa
 
 
   function disableAutoUnsubscribeAot() {
-    return window['disableAutoUnsubscribeAot'] || window['disableAuthUnsubscribeAot'];
+    return window && window['disableAutoUnsubscribeAot'] || window['disableAuthUnsubscribeAot'];
   }
 }
