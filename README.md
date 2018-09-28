@@ -31,9 +31,7 @@ export class InboxComponent {
     this.two = Observable.interval.subscribe(data => // do something);
   }
 
-  // If you work with AOT this method must be present, even if empty! 
-  // Otherwise 'ng build --prod' will optimize away any calls to ngOnDestroy, 
-  // even if the method is added by the @AutoUnsubscribe decorator
+  // This method must be present, even if empty.
   ngOnDestroy() {
     // You can also do whatever you need here
   }
