@@ -1,25 +1,37 @@
-const isFunction = (fn) => typeof fn === 'function';
+const isFunction = fn => typeof fn === "function";
 
-const doUnsubscribe = (subscription) => {
-  subscription && isFunction(subscription.unsubscribe) && subscription.unsubscribe();
-}
+const doUnsubscribe = subscription => {
+  subscription &&
+    isFunction(subscription.unsubscribe) &&
+    subscription.unsubscribe();
+};
 
-const doUnsubscribeIfArray = (subscriptionsArray) => {
-  Array.isArray(subscriptionsArray) && subscriptionsArray.forEach(doUnsubscribe);
-}
+const doUnsubscribeIfArray = subscriptionsArray => {
+  Array.isArray(subscriptionsArray) &&
+    subscriptionsArray.forEach(doUnsubscribe);
+};
 
-export function AutoUnsubscribe({ blackList = [], includeArrays = false, arrayName = '', event = 'ngOnDestroy'} = {}) {
-
-  return function (constructor: Function) {
+export function AutoUnsubscribe({
+  blackList = [],
+  arrayName = "",
+  event = "ngOnDestroy"
+} = {}) {
+  return function(constructor: Function) {
     const original = constructor.prototype[event];
 
-    if (!isFunction(original) && !disableAutoUnsubscribeAot()) {
-      console.warn(`${constructor.name} is using @AutoUnsubscribe but does not implement OnDestroy`);
+    if (!isFunction(original)) {
+      throw new Error(
+        `${
+          constructor.name
+        } is using @AutoUnsubscribe but does not implement OnDestroy`
+      );
     }
 
-    constructor.prototype[event] = function () {
+    constructor.prototype[event] = function() {
       if (arrayName) {
-        return doUnsubscribeIfArray(this[arrayName]);
+        doUnsubscribeIfArray(this[arrayName]);
+        isFunction(original) && original.apply(this, arguments);
+        return;
       }
 
       for (let propName in this) {
@@ -27,15 +39,9 @@ export function AutoUnsubscribe({ blackList = [], includeArrays = false, arrayNa
 
         const property = this[propName];
         doUnsubscribe(property);
-        doUnsubscribeIfArray(property);
       }
 
       isFunction(original) && original.apply(this, arguments);
     };
-  }
-
-
-  function disableAutoUnsubscribeAot() {
-    return window && window['disableAutoUnsubscribeAot'] || window['disableAuthUnsubscribeAot'];
-  }
+  };
 }

@@ -1,4 +1,5 @@
-### Angular - Auto Unsubscribe For Pros 
+### Angular - Auto Unsubscribe For Pros
+
 [![npm](https://img.shields.io/npm/dt/ngx-auto-unsubscribe.svg)]()
 [![Build Status](https://semaphoreci.com/api/v1/netanel7799/ngx-auto-unsubscribe/branches/master/badge.svg)](https://semaphoreci.com/netanel7799/ngx-auto-unsubscribe)
 [![Build Status](https://travis-ci.org/NetanelBasal/ngx-auto-unsubscribe.svg?branch=master)](https://travis-ci.org/NetanelBasal/ngx-auto-unsubscribe)
@@ -33,19 +34,18 @@ export class InboxComponent {
 
   // This method must be present, even if empty.
   ngOnDestroy() {
-    // You can also do whatever you need here
+    // We'll throw an error if it doesn't
   }
 }
 ```
 
 ### Options
 
-| Option            | Description                                                   | Default Value     |
-| ----------------- | ------------------------------------------------------------- | ----------------  |
-| `includeArrays`   | unsubscribe from arrays of subscriptions                      | `false`           |
-| `arrayName`       | unsubscribe from subscriptions only in specified array        | `''`              |
-| `blackList`       | an array of properties to exclude                             | `[]`              |
-| `event`           | a name of event callback to execute on                        | `ngOnDestroy`     |
+| Option      | Description                                            | Default Value |
+| ----------- | ------------------------------------------------------ | ------------- |
+| `arrayName` | unsubscribe from subscriptions only in specified array | `''`          |
+| `blackList` | an array of properties to exclude                      | `[]`          |
+| `event`     | a name of event callback to execute on                 | `ngOnDestroy` |
 
 Note: `blackList` is ignored if `arrayName` is specified.
 
