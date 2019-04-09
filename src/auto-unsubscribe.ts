@@ -3,6 +3,7 @@ const isFunction = fn => typeof fn === "function";
 const doUnsubscribe = subscription => {
   subscription &&
     isFunction(subscription.unsubscribe) &&
+    !(subscription instanceof Subject) &&
     subscription.unsubscribe();
 };
 
