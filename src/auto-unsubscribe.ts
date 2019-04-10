@@ -1,8 +1,11 @@
-const isFunction = fn => typeof fn === "function";
+import { Subject } from 'rxjs';
+
+const isFunction = fn => typeof fn === 'function';
 
 const doUnsubscribe = subscription => {
   subscription &&
     isFunction(subscription.unsubscribe) &&
+    !(subscription instanceof Subject) &&
     subscription.unsubscribe();
 };
 
@@ -13,8 +16,8 @@ const doUnsubscribeIfArray = subscriptionsArray => {
 
 export function AutoUnsubscribe({
   blackList = [],
-  arrayName = "",
-  event = "ngOnDestroy"
+  arrayName = '',
+  event = 'ngOnDestroy'
 } = {}) {
   return function(constructor: Function) {
     const original = constructor.prototype[event];
