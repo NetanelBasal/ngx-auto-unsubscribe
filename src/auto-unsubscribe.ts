@@ -32,7 +32,6 @@ export function AutoUnsubscribe({
 
       if (arrayName) {
         doUnsubscribeIfArray(this[arrayName]);
-        isFunction(original) && original.apply(this, arguments);
         return;
       }
 
