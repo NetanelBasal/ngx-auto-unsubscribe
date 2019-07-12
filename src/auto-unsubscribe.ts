@@ -28,9 +28,10 @@ export function AutoUnsubscribe({
     }
 
     constructor.prototype[event] = function() {
+      isFunction(original) && original.apply(this, arguments);
+
       if (arrayName) {
         doUnsubscribeIfArray(this[arrayName]);
-        isFunction(original) && original.apply(this, arguments);
         return;
       }
 
@@ -40,8 +41,6 @@ export function AutoUnsubscribe({
         const property = this[propName];
         doUnsubscribe(property);
       }
-
-      isFunction(original) && original.apply(this, arguments);
     };
   };
 }
