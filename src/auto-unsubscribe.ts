@@ -23,7 +23,7 @@ export function AutoUnsubscribe({
       throw new Error(
         `${
           constructor.name
-        } is using @AutoUnsubscribe but does not implement OnDestroy`
+        } is using @AutoUnsubscribe but does not implement ${event}`
       );
     }
 
