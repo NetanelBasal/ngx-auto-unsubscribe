@@ -6,6 +6,8 @@
 [![npm](https://img.shields.io/npm/l/ngx-auto-unsubscribe.svg)]()
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
+For Angular 9+, use [until-destroy](https://github.com/ngneat/until-destroy)
+
 #### Class decorator that will automatically unsubscribe from observable subscriptions when the component is destroyed
 
 ## Installation
