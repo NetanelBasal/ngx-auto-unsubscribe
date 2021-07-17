@@ -1,8 +1,9 @@
-const isFunction = fn => typeof fn === "function";
+const isFunction = fn => typeof fn === 'function';
 
 const doUnsubscribe = subscription => {
   subscription &&
     isFunction(subscription.unsubscribe) &&
+    (subscription.isStopped === false || subscription.closed === false) &&
     subscription.unsubscribe();
 };
 
@@ -11,11 +12,17 @@ const doUnsubscribeIfArray = subscriptionsArray => {
     subscriptionsArray.forEach(doUnsubscribe);
 };
 
+interface AutoUnsubParamType {
+  blackList?: string[];
+  arrayName?: string;
+  event?: string;
+}
+
 export function AutoUnsubscribe({
   blackList = [],
-  arrayName = "",
-  event = "ngOnDestroy"
-} = {}) {
+  arrayName = '',
+  event = 'ngOnDestroy'
+}: AutoUnsubParamType = {}) {
   return function(constructor: Function) {
     const original = constructor.prototype[event];
 
